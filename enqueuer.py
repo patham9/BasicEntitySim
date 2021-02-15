@@ -54,7 +54,7 @@ def draw_polygon_alpha(surface, color, points):
     surface.blit(shape_surf, target_rect)
 
 #Simulate environment within time range, and send the tracklets
-def enqueueSimulation(entities, t_start, t_end, visualize=True, gif=True, firstPersonSpeed = 0, startSimNarsese = "", startFrameNarsese="", endFrameNarsese="", endSimNarsese=""):
+def enqueueSimulation(entities, t_start, t_end, visualize=True, gif=True, firstPersonSpeed = 0, startSimNarsese = "", startFrameNarsese="", endFrameNarsese="", endSimNarsese="", KnowledgeAtTime={}):
     global s
     FP_speed = firstPersonSpeed
     if visualize:
@@ -80,6 +80,10 @@ def enqueueSimulation(entities, t_start, t_end, visualize=True, gif=True, firstP
         for narsese in startFrameNarsese.split("\n"):
             if len(narsese.strip()) > 0:
                 NAR.AddInput(narsese)
+        if t in KnowledgeAtTime:
+            for narsese in KnowledgeAtTime[t].split("\n"):
+                if len(narsese.strip()) > 0:
+                    NAR.AddInput(narsese)
         s += FP_speed
         if visualize:
             dis.fill((0, 128, 0))
